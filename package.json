@@ -5,19 +5,27 @@
   "main": "server.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "client-install": "npm install --prefix client", 
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
+    "client": "npm start --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client        && npm run build --prefix client"
-    
   },
   "author": "Vitalii Vorobii",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.5.0",
+    "@material-ui/icons": "^4.4.3",
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "nodemon": "^1.19.3"
+    "material-ui-phone-number": "^2.2.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.3",
+    "nodemon": "^1.19.3",
+    "react-bootstrap": "^1.0.0-beta.12"
   }
 }

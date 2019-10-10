@@ -3,10 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "google-maps-react": "^2.0.2",
+    "moment": "^2.24.0",
+    "nodemailer": "^6.3.0",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
+    "react-moment": "^0.9.5",
+    "react-native-maps-directions": "^1.7.3",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "use-state-with-callback": "^1.0.18"
   },
   "proxy": "http://127.0.0.1:5000/",
   "scripts": {

@@ -1,0 +1,14 @@
+.form-group-location {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.form-group-location > button {
+    margin: 10px;
+}
+
+.form-group-map{
+    width: 100%;
+    height: 30vh;
+}

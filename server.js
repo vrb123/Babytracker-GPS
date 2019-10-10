@@ -10,7 +10,7 @@ const routes = require('./routes');
 
 const app = express();
 
-
+app.use(cors());
 // // parse application/json
 app.use(bodyParser.json());
 
@@ -35,8 +35,12 @@ app.get('/', (req,res) => {
     res.send('Hello world');
 });
 
-app.use('/customer',routes.customer);
-
+app.use('/auth',routes.auth);
+app.use('/car',routes.car);
+app.use('/manager',routes.manager);
+app.use('/driver',routes.driver);
+app.use('/user',routes.user);
+app.use('/thirdParty',routes.thirdParty);
 
 
 app.listen(config.PORT,() => {

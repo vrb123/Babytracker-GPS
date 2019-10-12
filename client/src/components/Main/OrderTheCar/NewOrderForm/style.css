@@ -1,0 +1,88 @@
+.new-order-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.new-order-form-control{
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    border-bottom: 1px solid #DDDEDf;
+    padding-top: 2em;
+}
+
+.new-order-form-control-title {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1em;
+}
+
+.new-order-form-control-title > h4 {
+    margin: 0 auto;
+    font-weight: 600 !important;
+}
+
+input {
+    border: 0;
+}
+
+.new-order-form-control-input > input {
+    border: 0;
+}
+
+.new-order-form-control-input {
+    align-self: center;
+}
+
+.show-on-map-button {
+    background-color: white;
+    border: 2px solid #2e2e2e;
+    color: #7a7a7a;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10px;
+}
+
+.ant-input-number{
+    border: 0;
+}
+
+.new-order-plus-button{
+    background: inherit;
+    border: 0;
+    margin-bottom: 8px;
+}
+
+.new-order-form-control-group{
+    display: flex;
+    margin: 0 auto;
+}
+
+.new-order-form-control-group > h4 {
+    font-weight: 600 !important;
+}
+
+.calc-order-container{
+    margin: 2em 0;
+}
+
+.calc-order-button{
+    background-color: #4976A3;
+    border: 0;
+    color: #fff;
+    padding: 4px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2em;
+    margin: 4px 2px;
+    border-radius: 10px;
+}

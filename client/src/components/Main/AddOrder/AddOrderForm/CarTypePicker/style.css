@@ -1,0 +1,19 @@
+.car-picker-block {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.car-picker-block img {
+    height: 100px;
+}
+
+.car-picker-child {
+    padding: 20px;
+}
+
+.active-car {
+    border-bottom: 5px solid red;
+}

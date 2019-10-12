@@ -11,6 +11,7 @@ import {addSeconds} from '../../../../utils/date'
 import { Marker,Map, GoogleApiWrapper ,Polygon} from 'google-maps-react';
 
 import './style.css';
+import CarTypePicker from './CarTypePicker';
 
 const mapStyles = {
     width: '100%',
@@ -33,6 +34,8 @@ const AddOrderForm = ({onSubmit,userId, ...rest}) => {
     const [distance,setDistance] = useState(null);
 
     const [cost,setCost] = useState(0);
+
+    const [carType,setCarType] = useState('');
 
     const [permissiveCars,setPermissiveCars] = useState([]);
 
@@ -135,12 +138,8 @@ const AddOrderForm = ({onSubmit,userId, ...rest}) => {
 
             <FormControl>
                 <Select
-                value={carId}
-                onChange={e => setCarId(e.target.value)}
-                inputProps={{
-                    name: 'age',
-                    id: 'age-simple',
-                }}
+                    value={carId}
+                    onChange={e => setCarId(e.target.value)}
                 >
                 {
                     permissiveCars.map( (car) => (
@@ -149,6 +148,8 @@ const AddOrderForm = ({onSubmit,userId, ...rest}) => {
                 }
                 </Select>
             </FormControl>
+
+            <CarTypePicker cars={['sedan','bus','suv']} selected={carType} onChange={setCarType} />
             
             <div className="form-group-location">
                 <Button variant="outlined" onClick={onPickStartLocationButtonClick} color={selectStartLoc?"primary":"secondary"}>

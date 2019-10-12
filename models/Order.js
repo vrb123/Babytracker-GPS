@@ -9,6 +9,14 @@ const OrderSchema = mongoose.Schema({
         type: Date,
         required: true,
     },
+    endsAt: {
+        type: Date,
+        required: true
+    },
+    endTimeConfirmed:{
+        type: Date,
+    },
+
     distance: {
         type: Number,
         required: true,
@@ -21,6 +29,12 @@ const OrderSchema = mongoose.Schema({
         lat: Number,
         lng: Number
     }],
+    carType: {
+        type: String,
+        enum: ['sedan','bus','suv'],
+        required: true
+    },
+
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'Person',
@@ -31,6 +45,7 @@ const OrderSchema = mongoose.Schema({
         ref: 'Car',
         required: true
     },
+    
     status: {
         type: String,
         enum : ['ACTIVE','ENDED'],
@@ -40,13 +55,7 @@ const OrderSchema = mongoose.Schema({
         lat: Number,
         lng: Number
     },
-    endTimeConfirmed:{
-        type: Date,
-    },
-    endsAt: {
-        type: Date,
-        required: true
-    }
+    
 });
 
 OrderSchema.set('toJSON', {

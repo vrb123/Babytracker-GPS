@@ -18,6 +18,7 @@ import ViewOrder from './components/Main/ViewOrder';
 import ForgotPassword from './components/Main/ForgotPassword';
 import ResetPassword from './components/Main/ResetPassword';
 import AddCar from './components/Main/AddCar';
+import OrderTheCar from './components/Main/OrderTheCar';
 
 export default () => {
   return (
@@ -43,7 +44,7 @@ export default () => {
               </Route>
               
               <Route exact path="/addOrder">
-                  <AddOrder/>
+                  <OrderTheCar/>
               </Route>
 
               <Route exact path="/forgotPassword">

@@ -3,7 +3,7 @@ const car = require('./car');
 const user = require('./user');
 const manager = require('./manager');
 const driver = require('./driver');
-const thirdParty = require('./thirdParty');
+const location = require('./location');
 
 module.exports = {
     auth,
@@ -11,5 +11,5 @@ module.exports = {
     user,
     manager,
     driver,
-    thirdParty,
+    location,
 };

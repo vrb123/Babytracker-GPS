@@ -1,0 +1,126 @@
+.checkout-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.checkout-form-container {
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkout-order-details-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.checkout-order-details-row {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2em;
+    border-bottom: 1px solid #DBDEDD;
+}
+
+.checkout-order-details-row-data-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkout-order-details-row-data-key {
+    width: 48%;
+    text-align: right;
+}
+
+.checkout-order-details-row-data-key > h4 {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.checkout-order-details-row-data-value {
+    width: 48%;
+}
+
+.checkout-order-details-row-data-value > h4 {
+    font-size: 1.3em;
+}
+
+.underlined_age {
+    text-decoration: underline;
+}
+
+.checkout-order-details-button-group {
+    display: flex;
+    padding: 2em 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkout-order-details-button-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.8em;
+}
+
+.checkout-order-details-button {
+    padding: 0.5em;
+    border: 0;
+    outline: 0;
+    color: white;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    border-radius: 18%;
+}
+
+.checkout-order-details-button p {
+    margin: 0;
+    padding: 0;
+}
+
+.green {
+    background-color: #93bc43;
+}
+
+.blue {
+    background-color: #4977A4;
+}
+
+.purple {
+    background-color: #D95C79;
+}
+
+.checkout-order-details-route-map-container {
+    display: flex;
+    padding: 1em;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+}
+
+.display-route-map-container {
+    position: absolute;
+    width: 70%;
+    height: 35em;
+    left: 15%;
+}
+
+.checkout-order-details-route-map-title{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0;
+    align-items: center;
+}
+
+.checkout-order-details-route-map-title > h5 {
+    font-weight: bold;
+}

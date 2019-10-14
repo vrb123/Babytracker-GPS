@@ -13,6 +13,12 @@
     padding-top: 2em;
 }
 
+@media only screen and (max-width: 1240px) {
+    .new-order-form-control {
+        width: 100%;
+    }
+}
+
 .new-order-form-control-title {
     display: flex;
     width: 100%;

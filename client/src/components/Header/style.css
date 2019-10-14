@@ -40,3 +40,7 @@
     justify-content: space-between;
     align-items: flex-start;
 }
+
+.brand-menu {
+    padding: 0.8em;
+}

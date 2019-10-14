@@ -40,7 +40,7 @@ app.use('/car',routes.car);
 app.use('/manager',routes.manager);
 app.use('/driver',routes.driver);
 app.use('/user',routes.user);
-app.use('/thirdParty',routes.thirdParty);
+app.use('/location',routes.location);
 
 
 app.listen(config.PORT,() => {

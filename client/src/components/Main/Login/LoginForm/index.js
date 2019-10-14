@@ -1,32 +1,27 @@
-import React,{useState} from 'react';
-import MuiPhoneInput from 'material-ui-phone-number';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import {validateEmail,validatePhoneNumber} from '../../../../utils/validation';
-
 import './style.css';
+import {validateEmail} from '../../../../utils/validation';
 
 export default ({onSubmit}) => {
+
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     const [errors,setErrors] = useState({});
 
     const handleSubmitPress = () => {
+        console.log('CLICKED');
         const newErrors = {};
-        if(email.length < 5) newErrors.email = 'Email should have at least 5 characters';
-        else if( !validateEmail(email) ) newErrors.email = 'Email should match with pattern';
+        if(email.length < 5) newErrors.email = 'Минимальное количество символов email - 5';
+        else if( !validateEmail(email) ) newErrors.email = 'Email не совпадает с шаблоном';
 
-        if(password.length < 5) newErrors.password = 'Password should have at least 5 characters';
+        if(password.length < 5) newErrors.password = 'Минимальное количество символов пароля - 5';
         
-        if(Object.keys(newErrors).length > 0)
+        if(Object.keys(newErrors).length > 0){
+            console.log(newErrors);
             setErrors(newErrors);
+        }      
         else
             onSubmit({
                 email,
@@ -35,40 +30,38 @@ export default ({onSubmit}) => {
     };
 
     return (
-        <div class="login-form">
-            <h1>Login</h1>
-            <FormControl error={errors.email && errors.email.length > 0}>
-                <InputLabel htmlFor="email-input">Email</InputLabel>
-                <Input
-                    id="email-input"
-                    value={email}
-                    type="email"
-                    placeholder="Enter email"
-                    onChange={ e => setEmail(e.target.value)}
-                    aria-describedby="email-error-text"
-                />
-                <FormHelperText id="email-error-text">{errors.email || ''}</FormHelperText>
-            </FormControl>
-
-            <FormControl error={errors.password && errors.password.length > 0}>
-                <InputLabel htmlFor="password-input">Password</InputLabel>
-                <Input
-                id="password-input"
-                value={password}
-                type="password"
-                placeholder="Enter password"
-                onChange={e => setPassword(e.target.value)}
-                aria-describedby="password-error-text"
-                />
-                <FormHelperText id="password-error-text">{errors.password || ''}</FormHelperText>
-            </FormControl>
-
-            {/* <MuiPhoneInput error={errors.phoneNumber && errors.phoneNumber.length > 0} placeholder="Provide number" value={phoneNumber} defaultCountry={'ua'} onChange={setPhoneNumber}/> */}
-            <Button variant="contained" color="primary" onClick={handleSubmitPress}>
-                Submit
-            </Button>
-            <Link to="/register" >Not yet registered?</Link>
-            <Link to="/forgotPassword" >Forgot password?</Link>
+        <div className="login-form-wrapper">
+            <div className="login-form-container">
+                <div className="login-form-brand-logo">
+                    <img src={require('./baby_transfer.jpg')} alt='brand' />
+                </div>
+                <div className="welcome-login-form-title">
+                    <h2>Добро пожаловать</h2>
+                </div>
+                <div className="login-form-input">
+                    <input 
+                        type="text" 
+                        placeholder="Email" 
+                        value={email}
+                        onChange={e => setEmail(e.target.value)} 
+                    />
+                </div>
+                <div className="login-form-input">
+                    <input 
+                        type="password" 
+                        placeholder="Пароль" 
+                        value={password} 
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="login-form-submit">
+                    <button onClick={handleSubmitPress}>Вход</button>
+                </div>
+                <div className="login-form-links">
+                    <Link to="/register">Регистрация</Link>
+                    <Link to="/forgotPassword">Восстановить пароль</Link>
+                </div>
+            </div>
         </div>
     )
 };

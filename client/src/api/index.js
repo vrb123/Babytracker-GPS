@@ -1,4 +1,5 @@
 
+/* Auth */
 
 export const signUp = async formData => {
     try {
@@ -10,12 +11,9 @@ export const signUp = async formData => {
             },
             body: JSON.stringify(formData)
         });
-        const {ok,userId,role} = await response.json();
-        if(!ok) throw new Error('An error occured...');
+        const {ok} = await response.json();
         return {
-            ok,
-            userId,
-            role
+            ok
         }
     }
     catch(err){
@@ -71,7 +69,6 @@ export const forgotPassword = async formData => {
 };
 
 export const resetPassword = async (token) => {
-    console.log('Token: '+token);
     try {
         const response = await fetch(`/auth/reset/${token}`,{
             method: 'GET',
@@ -80,7 +77,6 @@ export const resetPassword = async (token) => {
             },
         });
         const {ok,email} = await response.json();
-        console.log('EMAIL: '+email);
         if(!ok) throw new Error('An error occured');
         return {
             ok,
@@ -88,7 +84,6 @@ export const resetPassword = async (token) => {
         };
     }
     catch(err){
-        console.log(err);
         return {
             ok: false
         }
@@ -105,18 +100,41 @@ export const updatePasswordViaEmail = async formData => {
             body: JSON.stringify(formData)
         });
         const {ok} = await response.json();
-        console.log(ok);
         return {
             ok
         };
     }   
     catch(err){
-        console(err);
         return {
             ok: false
         }
     } 
 };
+
+export const confirmEmail = async token => {
+    try {
+        const response = await fetch(`/auth/confirmEmail/${token}`,{
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const {ok,userId,role} = await response.json();
+        if(!ok) throw new Error('An error occured');
+        return {
+            ok,
+            userId,
+            role
+        };
+    }   
+    catch(err){
+        return {
+            ok: false
+        }
+    } 
+};
+
+/* END Auth */
 
 export const getAllCars = async () => {
     try {
@@ -162,32 +180,6 @@ export const getCar = async carNumber => {
         }
     }
 };
-
-// export const addCar = async (carNumber = 'hello22') => {
-//     console.log('CLICKED');
-//     try{
-//         const response = await fetch('car',{
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({carNumber})
-//         });
-//         const {ok,car} = await response.json();
-//         if(!ok) throw new Error('An error occured');
-//         console.log(car);
-//         return {
-//             car,
-//             ok,
-//         };
-//     }
-//     catch(err){
-//         console.log(err);
-//         return {
-//             ok: false
-//         }
-//     }
-// }
 
 export const getPermissiveCars = async (userId,startTime,endTime) => {
     try{
@@ -406,3 +398,49 @@ export const addCar = async (id,formData) => {
         }
     }
 }
+
+export const geoCode = async address => {
+    try {
+        const response = await fetch('/location/geocode',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({address})
+        });
+        const {ok,location} = await response.json();
+        if(!ok) throw new Error('An error occured');
+        return {
+            ok,
+            location
+        };
+    }
+    catch(err){
+        return {
+            ok: false
+        }
+    }
+};
+
+export const reverseGeocode = async coords => {
+    try {
+        const response = await fetch('/location/reversegeocode',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({coords})
+        });
+        const {ok,address} = await response.json();
+        if(!ok) throw new Error('An error occured');
+        return {
+            ok,
+            address
+        };
+    }
+    catch(err){
+        return {
+            ok: false
+        }
+    }
+};

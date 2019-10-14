@@ -1,7 +1,6 @@
 import React,{useState} from 'react';
 import './style.css';
 import DatePicker from "react-datepicker";
-
 import InputNumber from 'antd/es/input-number';
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,7 +11,9 @@ import Octicon, {getIconByName} from '@githubprimer/octicons-react';
 
 import TickleCheckbox from './TickleCheckbox';
 
-export default () => {
+const calcTotalChildMonths = child => (child.years * 12) + child.months;
+
+export default ({onSubmit}) => {
 
     const [startTime,setStartTime] = useState( new Date() );
     const [startAddress,setStartAddress] = useState('');
@@ -23,7 +24,7 @@ export default () => {
 
     const [childsAges,setChildsAges] = useState( [] );
 
-    const [num,setNum] = useState(0);
+    const [errors,updateErrors] = useState({});
 
     const onPrimaryChildAgeChange = (type,value) => {
         setPrimaryChildAge({...primaryChildAge,[type]:value});
@@ -43,6 +44,35 @@ export default () => {
 
     const deleteChild = index => {
         setChildsAges([...childsAges].filter((_,i) => i !== index ));
+    };
+
+    const onCheckout = () => {
+        const newErrors = {};
+        if(!startTime) newErrors.startTime = 'Предоставьте время начала заказа';
+        if(!startAddress) newErrors.startAddress = 'Предоставьте точку приезда';
+        if(!endAddress) newErrors.endAddress = 'Укажите конечную точку';
+        if(!carType) newErrors.carType = 'Укажите тип машины';
+        if(calcTotalChildMonths(primaryChildAge) <= 0 ) newErrors.primaryChildAge = 'Неверный возраст ребенка';
+        const childsAgesErrors = {};
+        childsAges.forEach( (child,index) => {
+            if( calcTotalChildMonths(child) <= 0 )
+                childsAgesErrors[index] = 'Неверный возраст ребенка';
+        });
+        if(Object.keys(childsAgesErrors).length > 0) newErrors.childsAgesErrors = childsAgesErrors;
+
+        if(Object.keys(newErrors).length > 0){
+            updateErrors( newErrors );
+        }
+        else {
+            onSubmit( {
+                startTime,
+                startAddress,
+                endAddress,
+                carType,
+                primaryChildAge,
+                childsAges
+            });
+        }
     };
 
     return (
@@ -165,7 +195,7 @@ export default () => {
             </div>
 
             <div className="calc-order-container">
-                <button className="calc-order-button">Просчитать заказ</button>
+                <button className="calc-order-button" onClick={onCheckout}>Просчитать заказ</button>
             </div>
         </div>
     );

@@ -2,9 +2,8 @@ import React,{useContext} from 'react';
 import LoginForm from './LoginForm';
 import {LoginContext} from '../../../contexts/LoginContext';
 import {AccessContext} from '../../../contexts/AccessContext';
-import { Container,Row,Col } from 'react-bootstrap';
 import {login} from '../../../api';
-import {Link,Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 export default () => {
     const [userId,setUserId] = useContext(LoginContext);
@@ -17,18 +16,13 @@ export default () => {
            setUserRole(role);
         }
         else {
-            console.log('ERROR');
-            //Todo An error occured
+            console.log('Error');
         }
     };
-    if(userId && role) return <Redirect to="/profile" />
+    if(userId && role) return <Redirect to="/" />
     return (
-        <Container fluid>
-            <Row>
-                <Col xl={12} md={12} xm={12} xs={12}>
-                    <LoginForm onSubmit={onSubmit}/>
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <LoginForm onSubmit={onSubmit}/>
+        </>
     )    
 };

@@ -21,8 +21,11 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(3),
   },
   title: {
-    display: 'block',
-    color:'white'
+    display: 'none',
+    color:'white',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+    },
   },
   sectionDesktop: {
     display: 'flex',
@@ -32,12 +35,12 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   brandImage: {
-    height: '100px'
+    height: '50px'
   },
   profileLogo: {
     color: 'white',
-    width: '90px',
-    height:'90px'
+    width: '50px',
+    height:'50px'
   },
   menuButton: {
     backgroundColor: '#386A9B',
@@ -51,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor:'#93BC43',
     position: 'fixed',
     right: 0,
-    top: '100px',
+    top: '64px',
     flexDirection: 'column',
     alignItems: 'center',
     overflow: 'hidden',
@@ -64,7 +67,7 @@ const useStyles = makeStyles(theme => ({
   
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
 
   const [menuVisible,toggleMenuVisible] = useState(false);
 
@@ -80,9 +83,8 @@ export default function PrimarySearchAppBar() {
           </div>
           {/* <div className={classes.grow} /> */}
           <Typography className={classes.title} variant="h4" noWrap>
-            Baby GPS
+            {props.title  || "Baby GPS"}
           </Typography>
-          {/* <div className={classes.grow} /> */}
           <div className={classes.sectionDesktop}>
             <button 
                 className={classes.menuButton} 
@@ -112,7 +114,7 @@ export default function PrimarySearchAppBar() {
                 <Link to="/orders" className="menu_link">Отчеты</Link>
                 <hr color="white" style={{height:0,width:'100%',margin: 0}}/>
                 <div className="brand-menu">
-                  <img src={require('./logo_green.png')} alt='brand' className={classes.brandImage} />
+                  <img src={require('./logo.png')} alt='brand' className={classes.brandImage} />
                 </div>
             </div>
           )

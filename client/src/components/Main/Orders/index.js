@@ -5,6 +5,8 @@ import { Container,Row,Col } from 'react-bootstrap';
 import {Link,Redirect} from 'react-router-dom';
 import OrderList from './OrderList';
 
+import Header from '../../Header';
+
 export default () => {
     const [userId] = useContext(LoginContext);
     const [role] = useContext(AccessContext);
@@ -21,17 +23,20 @@ export default () => {
         return <Redirect to={`/orders/${redirectOrder}`} />
 
     return (
-        <Container fluid>
-            <Row>
-                <Col>
-                    <h1>Orders</h1>
-                    <OrderList 
-                        userId={userId} 
-                        role={role}
-                        onSingleOrderClick={onSingleOrderClick}
-                    />
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <Header title="Список заказов" />
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <OrderList 
+                            userId={userId} 
+                            role={role}
+                            onSingleOrderClick={onSingleOrderClick}
+                        />
+                    </Col>
+                </Row>
+            </Container>
+        </>
+        
     );
 }

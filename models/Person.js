@@ -5,10 +5,6 @@ const PersonSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    name: {
-        type: String,
-        required: false
-    },
     password:{
         type: String,
         required: true,
@@ -27,6 +23,10 @@ const PersonSchema = mongoose.Schema({
     },
     resetPasswordExpires: {
         type: Date
+    },
+    isVerified: {
+        type: Boolean,
+        default: false,
     }
 });
 

@@ -9,8 +9,6 @@ export default (props) => {
     const {token} = props.match.params;
     const [error,setError] = useState(null);
 
-    console.log(token);
-
     useEffect(() => {
         const getUserEmail = async () => {
             const {ok,email} = await resetPassword(token);

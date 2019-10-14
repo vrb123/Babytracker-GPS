@@ -1,47 +1,53 @@
-import React,{useState} from 'react';
-import Button from '@material-ui/core/Button';
-
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import React,{useState,useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import './style.css';
 import {validateEmail} from '../../../../utils/validation';
 
 export default ({onSubmit}) => {
+
     const [email,setEmail] = useState('');
+
     const [errors,setErrors] = useState({});
 
     const handleSubmitPress = () => {
         const newErrors = {};
-        if(email.length < 5) newErrors.email = 'Email should containt at least 5 characters';
-        else if(!validateEmail(email)) newErrors.email = 'Email doesn`t match with the pattern';
+        if(email.length < 5) newErrors.email = 'Минимальное количество символов email - 5';
+        else if( !validateEmail(email) ) newErrors.email = 'Email не совпадает с шаблоном';
 
         if(Object.keys(newErrors).length > 0){
             setErrors(newErrors);
-        }
-        else {
-            onSubmit({email})
-        }
+        }      
+        else
+            onSubmit({
+                email,
+            })
     };
 
     return (
-        <div style={{display:'flex','justifyContent':'center','alignItems':'center','height':'100vh',flexDirection:'column'}}>
-            <h1>Reset password</h1>
-            <FormControl error={errors.email && errors.email.length > 0}>
-                <InputLabel htmlFor="email-input">Email</InputLabel>
-                <Input
-                    id="email-input"
-                    value={email}
-                    type="email"
-                    placeholder="Enter email"
-                    onChange={ e => setEmail(e.target.value)}
-                    aria-describedby="email-error-text"
-                />
-                <FormHelperText id="email-error-text">{errors.email || ''}</FormHelperText>
-            </FormControl>
-            <Button variant="contained" color="primary" onClick={handleSubmitPress}>
-                Reset
-            </Button>
+        <div className="login-form-wrapper">
+            <div className="login-form-container">
+                <div className="login-form-brand-logo">
+                    <img src={require('./baby_transfer.jpg')} alt='brand' />
+                </div>
+                <div className="welcome-login-form-title">
+                    <h2>Восстановление пароля</h2>
+                </div>
+                <div className="login-form-input">
+                    <input 
+                        type="text" 
+                        placeholder="Email" 
+                        value={email}
+                        onChange={e => setEmail(e.target.value)} 
+                    />
+                </div>
+                <div className="login-form-submit">
+                    <button onClick={handleSubmitPress}>Восстановить</button>
+                </div>
+                <div className="login-form-links">
+                    <Link to="/register">Регистрация</Link>
+                    <Link to="/login">Вход</Link>
+                </div>
+            </div>
         </div>
     )
 };

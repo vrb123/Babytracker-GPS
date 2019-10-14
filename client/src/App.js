@@ -19,13 +19,14 @@ import ForgotPassword from './components/Main/ForgotPassword';
 import ResetPassword from './components/Main/ResetPassword';
 import AddCar from './components/Main/AddCar';
 import OrderTheCar from './components/Main/OrderTheCar';
+import ConfirmEmail from './components/Main/ConfirmEmail';
 
 export default () => {
   return (
     <AccessProvider>
       <LoginProvider>
           <Router>
-            <Header/>
+            {/* <Header/> */}
             <Switch>
               <Route exact path="/login">
                   <Login />
@@ -54,11 +55,13 @@ export default () => {
               <Route exact path="/reset/:token" component={ResetPassword} />
 
               <Route exact path="/orders/:id" component={ViewOrder} />
+
+              <Route exact path="/confirmEmail/:token" component={ConfirmEmail} />
               
               <Route path="/map/:id" component={CarMap} />
 
               <Route exact path="/">
-                  <CarsMap/>
+                  <Orders/>
               </Route>
 
               <Route exact path="/profile">

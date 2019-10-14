@@ -17,14 +17,63 @@ router.post('/signup',async (req,res) => {
 
         const password = bcrypt.hashSync(nonCryptedPass,10);
         const user = await models.Customer.create({email,password,phoneNumber,role});
+
+        const token = await models.Token.create({
+            userId: user._id,
+            token: crypto.randomBytes(16).toString('hex'),
+        });
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'my.babytransfer@gmail.com',
+                pass: 'kbKUa3053M'
+            }
+        });
+
+        const mailOptions = {
+            from: 'my.babytransfer@gmail.com',
+            to: `${user.email}`,
+            subject: 'Link to confirm email',
+            text:
+                `You are receiving that because you have registered on site\n\n`+
+                `Please click on the folliwing link\n\n`+
+                `http://my.babytransfer.com/confirmEmail/${token.token}\n\n`
+        };
+
+        transporter.sendMail(mailOptions, err => {
+            if(err) throw new Error('Error while sending email... '+err);
+        })
+
         res.json({
             ok: true,
-            userId: user.id,
-            role: user.role
         });
     }
     catch(err){
         console.log(err);
+        res.json({
+            ok: false,
+        });
+    }
+});
+
+router.get('/confirmEmail/:token',async (req,res) => {
+    const {token} = req.params;
+    try{
+        const theToken = await models.Token.findOne({token});
+        if(!theToken) throw new Error('No such token...');
+        const personToUpdate = await models.Customer.findById(theToken.userId);
+        if(!personToUpdate) throw new Error(theToken);
+        await personToUpdate.update({
+            isVerified: true
+        });
+        res.json({
+            ok: true,
+            userId: personToUpdate.id,
+            role: personToUpdate.role
+        });
+    }
+    catch(err){
         res.json({
             ok: false,
         });
@@ -39,6 +88,7 @@ router.post('/login', async (req,res) => {
         const user = await models.Customer.findOne({email});
         if(!user) throw new Error('No such user');
         if(!bcrypt.compareSync(password,user.password)) throw new Error('Невірний пароль');
+        if(!user.isVerified) throw new Error('User is not confirmed');
         res.json({
             ok: true,
             userId: user.id,
@@ -54,7 +104,6 @@ router.post('/login', async (req,res) => {
 
 router.get('/reset/:token' , async (req,res) => {
     const {token} = req.params;
-    console.log('Token: '+token);
     try {
         if(!token) throw new Error('No token provided');
         const user = await models.Customer.findOne({
@@ -64,15 +113,12 @@ router.get('/reset/:token' , async (req,res) => {
             } 
         });
         if(!user) throw new Error('Invalid token or expired');
-        console.log(user);
         res.json({
             ok: true,
             email: user.email
         });
     }
     catch(err){
-        console.log('Err');
-        console.log(err);
         res.json({
             ok: false
         })
@@ -120,19 +166,19 @@ router.post('/forgotPassword',async (req,res) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'vitalij.vorobij@gmail.com',
-                pass: 'Guitar18+'
+                user: 'my.babytransfer@gmail.com',
+                pass: 'kbKUa3053M'
             }
         });
 
         const mailOptions = {
-            from: 'vitalij.vorobij@gmail.com',
+            from: 'my.babytransfer@gmail.com',
             to: `${user.email}`,
             subject: 'Link to reset password',
             text:
                 `You are receiving that because you have requested the reset of password\n\n`+
                 `Please click on the folliwing link\n\n`+
-                `http://localhost:3000/reset/${token}\n\n`
+                `http://my.babytransfer.com/reset/${token}\n\n`
         };
 
         transporter.sendMail(mailOptions,(err,response) => {
